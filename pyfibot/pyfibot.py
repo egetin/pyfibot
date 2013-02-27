@@ -23,6 +23,10 @@ import logging.handlers
 import json
 import jsonschema
 
+# Make requests quieter by default
+requests_log = logging.getLogger("requests")
+requests_log.setLevel(logging.WARNING)
+
 try:
     import yaml
 except ImportError:
@@ -217,10 +221,14 @@ class PyFiBotFactory(ThrottledClientFactory):
         """Global methods for modules"""
         g = {}
 
-        g['getUrl'] = self.getUrl
+        g['getUrl'] = self.get_url
+        g['get_url'] = self.get_url
         g['getNick'] = self.getNick
         g['isAdmin'] = self.isAdmin
         return g
+
+    def get_url(self, url, nocache=False, params=None, headers=None):
+        return self.getUrl(url, nocache, params, headers)
 
     def getUrl(self, url, nocache=False, params=None, headers=None):
         """Gets data, bs and headers for the given url, using the internal cache if necessary"""
