@@ -10,5 +10,7 @@ def init(bot):
 	pass
 
 def handle_privmsg(bot, user, channel, msg):
-	if ("*tsips*" or "*naks*" or "*tsipsnaks*" or "*raks*" or "*blob*" or "*tsih*") in msg:
-		log.info("Käyttäjä %s avasi juoman" % user)
+	eventit = ["*tsips*", "*naks*", "*tsipsnaks*", "*raks*", "*blob*", "*tsih*"]
+	for kohta in eventit:
+		if kohta in msg:
+			log.info("Käyttäjä %s avasi juoman" % user)
