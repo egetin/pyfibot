@@ -207,7 +207,7 @@ def _title(bot, channel, title, smart=False, prefix=None):
         return
 
     if not prefix:
-        prefix = "Title:"
+        prefix = ""
     info = None
     # tuple, additional info
     if type(title) == TupleType:
@@ -220,9 +220,9 @@ def _title(bot, channel, title, smart=False, prefix=None):
     title = BeautifulStoneSoup(title, convertEntities=BeautifulStoneSoup.ALL_ENTITIES)
 
     if not info:
-        return bot.say(channel, "%s %s" % (prefix, title))
+        return bot.say(channel, "%s%s" % (prefix, title))
     else:
-        return bot.say(channel, "%s %s [%s]" % (prefix, title, info))
+        return bot.say(channel, "%s%s [%s]" % (prefix, title, info))
 
 
 # TODO: Some handlers does not have if not bs: return, but why do we even have this for every function
