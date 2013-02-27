@@ -76,3 +76,25 @@ def handle_privmsg(bot, user, channel, msg):
 			filu.write(teksti)
 			filu.close()
 			return
+
+def command_tsips(bot, user, channel, args):
+	# .tsips kertoo käyttäjälle paljonko tämä on juopotellut
+	# .tsips [nick] kertoo toisen nickin statsit
+	""".tsips palauttaa kysyjän statsit. .tsips [nick] palauttaa annetun nickin statsit."""
+	nick = getNick(user)
+	if len(args) == 0:
+		target = nick
+	else:
+		target = args
+	
+	try:
+		kokmaara = kayttajalista[target][0]
+	except KeyError:
+		log.info("Käyttäjästä %s ei löytynyt tietoja" % target)
+		teksti = "%s ei ole juopotellut vielä kertaakaan!" % target
+		return bot.say(channel, teksti)
+	valiaik = kayttajalista[target][1]
+	kello = kayttajalista[target][2]
+	teksti = "%s on avannut pullon tai tölkin %d kertaa kokonaisuudessaan! Viiden tunnin sisään hän on napsutellut %d kertaa. Viimeisin aukaisu tapahtui %s." % (target, kokmaara, valiaik, kello)
+	log.info("Tiedot tongittu onnistuneesti")
+	return bot.say(channel, teksti)
