@@ -10,6 +10,8 @@
 #
 # Jos tsipsauksia on kolme tai enemmän 5h sisään niin botti alkaa vittuilemaan käyttäjälle
 
+""".tsips palauttaa kysyjän statsit, .tsips [nick] antaa kohteen statsit."""
+
 import logging
 import time
 from datetime import datetime
@@ -86,6 +88,7 @@ def command_tsips(bot, user, channel, args):
 		target = nick
 	else:
 		target = args
+	target = target.strip()
 	
 	try:
 		kokmaara = kayttajalista[target][0]
